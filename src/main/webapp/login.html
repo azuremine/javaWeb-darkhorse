@@ -18,6 +18,83 @@
     <script src="js/angular.min.js"></script>
 	<!--导入jquery-->
 	<script src="js/jquery-3.3.1.js"></script>
+
+	<script>
+
+		//检查是否输入账号
+		function checkUsername(){
+			var ele = $("input[name='username']");
+			var reg = /^\w{8,20}$/;
+			var flag = reg.test(ele.val());
+			if(flag){
+				//校验通过
+				ele.css("border","");
+			}else {
+				//校验不通过
+				ele.css("border","1px solid red");
+			}
+			return flag;
+		}
+
+		//检查是否输入密码
+		function checkPassword(){
+			var ele = $("input[name='password']");
+			var reg = /^\w{8,20}$/;
+			var flag = reg.test(ele.val());
+			if(flag){
+				//校验通过
+				ele.css("border","");
+			}else {
+				//校验不通过
+				ele.css("border","1px solid red");
+			}
+			return flag;
+		}
+
+		//检查是否输入验证码
+		function checkCode(){
+			var ele = $("input[name='check']");
+
+			if(ele.val() != ""){
+				//校验通过
+				ele.css("border","");
+				return true;
+			}else {
+				//校验不通过
+				ele.css("border","1px solid red");
+				return false;
+			}
+		}
+
+		$(function () {
+			//表单提交时也要检查
+			$("#loginBtn").click(function () {
+				if(checkUsername() && checkPassword() && checkCode()){
+					$.ajax({
+						url:"loginServlet",
+						type:"get",
+						data:$("#loginForm").serialize(),
+						success:function (result) {
+							if(result.flag){
+								//登录成功，跳转系统首页
+								location.href = "index.html";
+							}else {
+								$("#errorMsg").html(result.errorMsg);
+							}
+						}
+					});
+				}
+				return false;
+			});
+
+			//失去焦点时进行检查
+			$("input[name='username']").blur(checkUsername);
+			$("input[name='password']").blur(checkPassword);
+			$("input[name='check']").blur(checkCode);
+
+		});
+
+	</script>
 </head>
 
 <body>
@@ -52,14 +129,14 @@
 					</script>
 			</div>
 			<div class="submit_btn">
-        				<button type="button">登录</button>
+        				<button type="button" id="loginBtn">登录</button>
         				<div class="auto_login">
         					<input type="checkbox" name="" class="checkbox">
         					<span>自动登录</span>
         				</div>        				
         			</div>        			       		
         		</form>
-        		<div class="reg">没有账户？<a href="javascript:;">立即注册</a></div>
+        		<div class="reg">没有账户？<a href="register.html">立即注册</a></div>
         	</div>
         </div>
     </section>

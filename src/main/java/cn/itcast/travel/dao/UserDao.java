@@ -9,12 +9,32 @@ public interface UserDao {
      * @param username
      * @return
      */
-    public User findByUsername(String username);
+    User findByUsername(String username);
 
     /**
      * 用户保存
      * @param user
      */
-    public void save(User user);
+    int saveUser(User user);
 
+    /**
+     * 根据指定激活码查询用户
+     * @param code
+     * @return
+     */
+    User findByCode(String code);
+
+    /**
+     * 更新指定用户激活状态
+     * @param user
+     */
+    int updateStatus(User user);
+
+    /**
+     * 根据用户名和密码查询指定用户
+     * @param username
+     * @param password
+     * @return
+     */
+    User findByUsernameAndPassword(String username, String password);
 }
