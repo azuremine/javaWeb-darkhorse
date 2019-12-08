@@ -71,7 +71,7 @@
 			$("#loginBtn").click(function () {
 				if(checkUsername() && checkPassword() && checkCode()){
 					$.ajax({
-						url:"loginServlet",
+						url:"user/login",
 						type:"get",
 						data:$("#loginForm").serialize(),
 						success:function (result) {

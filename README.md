@@ -1,6 +1,8 @@
 # javaWeb-darkhorse
 java Web project
 
+这个项目是某马中的一个java旅游网站
+
 项目架构及使用技术
 web层：
   a)	Servlet：前端控制器
@@ -39,3 +41,14 @@ dao层：
 ​		销毁跟用户相关联的session对象
 
 这里要特别注意分使用场景来做出不同的选择。今天做的功能不是特别的多，但是存在者很多的问题。比如说很多的Servlet中都有重复的可提取的代码；一个Servlet只能处理某一类的请求，不像SpringMVC中dispachareServlet可以处理多种请求
+
+
+
+第三天
+
+今天的Servlet代码抽取，正好解决了昨天一个Servlet只能处理某一类的请求，以及造成Servlet数量庞大的问题。通过创建一个继承自HttpServlet的BaseServlet类来解决此问题。BaseServlet中重写service方法，来处理分发同一类的请求。比如，跟User相关的请求统一为 /user/* 等。
+
+创建继承自BaseServlet的UserServlet类来统一管理跟User相关的请求。比如用户注册，用户登录需要调用的后台方法等，统一写到UserServlet中。UserServlet处理 /user/* 请求。
+
+SpringMVC中，也是通过@Controller和@RequestMapping来负责处理指定的由 DispatcherServlet 分发的请求。在通过@Controller标注的类中，如果方法上也有@RequestMapping注解，则请求分发到具体方法上。而且通过SpringMVC中的@RequestBody和@ResponseBody可以很便捷的获取请求的json数据和响应json数据。
+
