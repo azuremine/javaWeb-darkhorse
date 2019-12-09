@@ -20,7 +20,6 @@ import java.util.Map;
 @WebServlet("/user/*")
 public class UserServlet extends BaseServlet {
 
-    private ObjectMapper objectMapper = new ObjectMapper();
     private UserService userService = new UserServiceImpl();
     private ResultInfo info = new ResultInfo();
 
@@ -50,12 +49,10 @@ public class UserServlet extends BaseServlet {
      * @throws IOException
      */
     public void findUser(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        response.setContentType("application/json;charset=utf-8");
-        if(user != null){
-            objectMapper.writeValue(response.getWriter(),user);
-        }
+        writeValue(user,response);
     }
 
     /**
@@ -79,9 +76,7 @@ public class UserServlet extends BaseServlet {
             info.setFlag(false);
             info.setErrorMsg("验证码错误");
             //将info对象序列化为json
-            String json = objectMapper.writeValueAsString(info);
-            response.setContentType("application/json;charset=utf-8");
-            response.getWriter().write(json);
+            writeValue(info,response);
             return;
         }
 
@@ -116,9 +111,7 @@ public class UserServlet extends BaseServlet {
             //将用户信息存入session
             session.setAttribute("user",u);
         }
-
-        response.setContentType("application/json;charset=utf-8");
-        objectMapper.writeValue(response.getWriter(),info);
+        writeValue(info,response);
     }
 
     /**
@@ -142,10 +135,8 @@ public class UserServlet extends BaseServlet {
             //注册失败
             info.setFlag(false);
             info.setErrorMsg("验证码错误");
-            //将info对象序列化为json
-            String json = objectMapper.writeValueAsString(info);
-            response.setContentType("application/json;charset=utf-8");
-            response.getWriter().write(json);
+            //将info对象序列化为json,并返回
+            writeValue(info,response);
             return;
         }
 
@@ -175,14 +166,9 @@ public class UserServlet extends BaseServlet {
             info.setFlag(false);
             info.setErrorMsg("注册失败!");
         }
-
         //将info对象序列化为json
-        String json = objectMapper.writeValueAsString(info);
-
         //将json数据写回客户端
-        //设置content-type
-        response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write(json);
+        writeValue(info,response);
     }
 
     /**

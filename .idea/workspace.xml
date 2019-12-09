@@ -22,6 +22,14 @@
     <expand />
     <select />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -39,7 +47,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Filter&amp;&amp;Listener" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SSM1" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -142,7 +150,9 @@
       <workItem from="1575707053229" duration="173000" />
       <workItem from="1575707377247" duration="11000" />
       <workItem from="1575709143905" duration="638000" />
-      <workItem from="1575788360823" duration="7072000" />
+      <workItem from="1575788360823" duration="8814000" />
+      <workItem from="1575854712339" duration="8576000" />
+      <workItem from="1575863402241" duration="1081000" />
     </task>
     <servers />
   </component>

@@ -12,6 +12,7 @@ import java.util.Properties;
  * Jedis工具类
  */
 public final class JedisUtil {
+
     private static JedisPool jedisPool;
 
     static {

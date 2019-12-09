@@ -2,10 +2,13 @@ package cn.itcast.travel.service.impl;
 
 import cn.itcast.travel.dao.UserDao;
 import cn.itcast.travel.dao.impl.UserDaoImpl;
+import cn.itcast.travel.domain.Category;
 import cn.itcast.travel.domain.User;
 import cn.itcast.travel.service.UserService;
 import cn.itcast.travel.util.MailUtils;
 import cn.itcast.travel.util.UuidUtil;
+
+import java.util.List;
 
 
 public class UserServiceImpl implements UserService {
