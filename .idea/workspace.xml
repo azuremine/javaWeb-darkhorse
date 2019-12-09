@@ -27,6 +27,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -45,6 +46,7 @@
   </component>
   <component name="ProjectId" id="1UbUQ4rZCSXzDm5Akpv4dFfiUoa" />
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../SSM1" />
@@ -153,6 +155,8 @@
       <workItem from="1575788360823" duration="8814000" />
       <workItem from="1575854712339" duration="8576000" />
       <workItem from="1575863402241" duration="1081000" />
+      <workItem from="1575878875669" duration="7343000" />
+      <workItem from="1575895853128" duration="853000" />
     </task>
     <servers />
   </component>
