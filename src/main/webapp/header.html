@@ -22,7 +22,7 @@
                    var ele = data.data;
                    var str = '<li class="nav-active"><a href="index.html">首页</a></li>';
                    $.each(ele, function (index, item) {
-                       str += '<li><a href="route_list.html?code=' + item.cid + '">' + item.cname + '</a></li>';
+                       str += '<li><a href="route_list.html?cid=' + item.cid + '">' + item.cname + '</a></li>';
                    });
                    str += '<li><a href="favoriterank.html">收藏排行榜</a></li>';
                    $(".nav").append(str);

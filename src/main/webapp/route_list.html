@@ -12,7 +12,10 @@
     <script type="text/javascript" src="js/getParameter.js"></script>
     <script>
         $(function () {
-            var code = getParameter("code");
+            var cid = getParameter("cid");
+            $.get("route/pageQuery",{"cid":cid},function (data) {
+                alert(data);
+            });
         });
     </script>
 </head>
