@@ -52,3 +52,20 @@ dao层：
 
 SpringMVC中，也是通过@Controller和@RequestMapping来负责处理指定的由 DispatcherServlet 分发的请求。在通过@Controller标注的类中，如果方法上也有@RequestMapping注解，则请求分发到具体方法上。而且通过SpringMVC中的@RequestBody和@ResponseBody可以很便捷的获取请求的json数据和响应json数据。
 
+
+
+第四天
+
+完成了旅游数据的展示，和分页数据的显示和优化。在之前学习SpringMVC时，是直接使用PageHelper直接获得分页数据的json。这个项目则是由手写的PageBean来查询数据库，处理数据获得分页数据并返回。
+
+PageBean分页数据一般有这几个属性，当然也可以根据实际开发场景，对应的增加属性和方法。
+
+```java
+private int totalCount; //总记录数
+private int totalPage;  //总页数
+private int currentPage;//当前页码
+private int pageSize;   //每页显示的条数
+private List<T> list;   //每页显示的数据集合
+```
+
+如果使用PageHelper，则扩展了很多有用的属性和可以用来判断的方法，使用起来非常方便。建议先自己编写PageBean类，通过基本的编写了解数据的处理过程。

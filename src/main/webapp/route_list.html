@@ -31,22 +31,6 @@
                     <div class="page_num_inf">
                     </div>
                     <div class="pageNum">
-<!--                        <ul>-->
-<!--                            <li><a href="">首页</a></li>-->
-<!--                            <li class="threeword"><a href="#">上一页</a></li>-->
-<!--                            <li><a href="#">1</a></li>-->
-<!--                            <li><a href="#">2</a></li>-->
-<!--                            <li><a href="#">3</a></li>-->
-<!--                            <li><a href="#">4</a></li>-->
-<!--                            <li><a href="#">5</a></li>-->
-<!--                            <li><a href="#">6</a></li>-->
-<!--                            <li><a href="#">7</a></li>-->
-<!--                            <li><a href="#">8</a></li>-->
-<!--                            <li><a href="#">9</a></li>-->
-<!--                            <li><a href="#">10</a></li>-->
-<!--                            <li class="threeword"><a href="javascript:;">下一页</a></li>-->
-<!--                            <li class="threeword"><a href="javascript:;">末页</a></li>-->
-<!--                        </ul>-->
                     </div>
                 </div>
                 <div class="right">
@@ -107,90 +91,118 @@
     <script type="text/javascript" src="js/include.js"></script>
 
     <script>
+        //入口函数
         $(function () {
             var cid = getParameter("cid");
-            $.get("route/pageQuery",{"cid":cid},function (data) {
-                var list = data.list;
+            load(cid);
+        });
 
+        //加载页面数据
+        function load(cid,currentPage) {
+            $.get("route/pageQuery",{"cid":cid,"currentPage":currentPage},function (data) {
                 //设置列表数据
                 show_data(data);
-
                 //设置分页及记录信息
-                show_nav(data);
+                show_nav(cid,data);
             });
-        });
-        
-        function toPage(pn) {
-            
         }
 
         //展示列表数据信息
         function show_data(data) {
+            var ul = $(".xinxi").find("ul:eq(0)");
+            //首先清空上一次填充的元素
+            ul.empty();
             var list = data.list;
             //遍历，填充li
             $.each(list,function (index,item) {
                 //<li></li>里面的内容
-                var li = '  <li>\n' +
-                    '            <div class="img"><img src="' + item.rimage + '" style="width: 299px;"></div>\n' +
-                    '                <div class="text1">\n' +
-                    '                <p>' + item.rname + '</p>\n' +
-                    '            <br/>\n' +
-                    '            <p>' + item.routeIntroduce + '</p>\n' +
-                    '            </div>\n' +
-                    '            <div class="price">\n' +
-                    '                <p class="price_num">\n' +
-                    '                <span>&yen;</span>\n' +
-                    '            <span>' + item.price + '</span>\n' +
-                    '            <span>起</span>\n' +
-                    '            </p>\n' +
-                    '            <p><a href="route_detail.html">查看详情</a></p>\n' +
-                    '            </div>\n' +
+                var li = '  <li>' +
+                    '            <div class="img"><img src="' + item.rimage + '" style="width: 299px;"></div>' +
+                    '                <div class="text1">' +
+                    '                <p>' + item.rname + '</p>' +
+                    '            <br/>' +
+                    '            <p>' + item.routeIntroduce + '</p>' +
+                    '            </div>' +
+                    '            <div class="price">' +
+                    '                <p class="price_num">' +
+                    '                <span>&yen;</span>' +
+                    '            <span>' + item.price + '</span>' +
+                    '            <span>起</span>' +
+                    '            </p>' +
+                    '            <p><a href="route_detail.html">查看详情</a></p>' +
+                    '            </div>' +
                     '        </li>';
 
                 //将<li></li>加入第一个ul中
-                $(".xinxi").find("ul:eq(0)").append(li);
+                ul.append(li);
             });
         }
 
         //展示分页条及记录信息
-        function show_nav(data) {
+        function show_nav(cid,data) {
+            //清空内容
+            $(".page_num_inf").empty();
+            $(".pageNum").empty();
 
             //设置记录内容
-            var record = '<i></i> 共\n' +
+            var record = '<i></i> 共' +
                 '<span>' + data.totalPage + '</span>页<span>' + data.totalCount + '</span>条';
             $(".page_num_inf").append(record);
 
             //设置分页条内容
-        // <div class="pageNum">
-        //         <ul>
-        //         <li><a href="">首页</a></li>
-        //     <li class="threeword"><a href="#">上一页</a></li>
-        //     <li><a href="#">1</a></li>
-        //     <li><a href="#">2</a></li>
-        //     <li><a href="#">3</a></li>
-        //     <li><a href="#">4</a></li>
-        //     <li><a href="#">5</a></li>
-        //     <li><a href="#">6</a></li>
-        //     <li><a href="#">7</a></li>
-        //     <li><a href="#">8</a></li>
-        //     <li><a href="#">9</a></li>
-        //     <li><a href="#">10</a></li>
-        //     <li class="threeword"><a href="javascript:;">下一页</a></li>
-        //     <li class="threeword"><a href="javascript:;">末页</a></li>
-        //     </ul>
-        //     </div>
-            var nav = '<ul>\n' +
-                '            <li><a href="">首页</a></li>\n' +
-                '            <li class="threeword"><a href="#">上一页</a></li>';
-
-            for (var i = 1; i <= data.totalPage; i++) {
-                nav += '<li><a href="#">' + i + '</a></li>';
+            //上一页页码
+            var beforeNum = data.currentPage - 1;
+            if(beforeNum <= 0){
+                beforeNum = 1;
             }
 
-            nav += '<li class="threeword"><a href="javascript:;">下一页</a></li>\n' +
-                '<li class="threeword"><a href="javascript:;">末页</a></li>';
+            var nav = '<ul>' +
+                '<li class="threeword" onclick="javascript:load(' + cid + ')"><a href="javascript:;">首页</a></li>' +
+                '<li class="threeword" onclick="javascript:load(' + cid + ',' + beforeNum + ')"><a href="javascript:;">上一页</a></li>';
 
+            //定义开始位置begin，和结束位置end
+            var begin,end;
+            //显示10个页码
+            if(data.totalPage < 10){
+                //总页码少于10页
+                begin = 1;
+                end = data.totalPage;
+            }else{
+                //总页码超过10页
+                begin = data.currentPage - 5;
+                end = data.currentPage + 4;
+                //如果前面不够5个，后面补齐10个
+                if(begin < 1){
+                    begin = 1;
+                    end = begin + 9;
+                }
+                //如果后面不足4个，前面补齐10个
+                if(end > data.totalPage){
+                    end = data.totalPage;
+                    begin = end - 9;
+                }
+            }
+
+            for (var i = begin; i <= end; i++) {
+                if (data.currentPage == i){
+                    nav += '<li class="curPage" onclick="javascript:load(' + cid + ',' + i + ')"><a href="javascript:;">' + i + '</a></li>';
+                }else {
+                    nav += '<li onclick="javascript:load(' + cid + ',' + i + ')"><a href="javascript:;">' + i + '</a></li>';
+                }
+            }
+
+            //下一页页码
+            var nextNum = data.currentPage + 1;
+            if(nextNum > data.totalPage){
+                nextNum = data.totalPage;
+            }
+            nav += '<li class="threeword" onclick="javascript:load(' + cid + ',' + nextNum + ')"><a href="javascript:;">下一页</a></li>' +
+                '<li class="threeword" onclick="javascript:load(' + cid + ',' + data.totalPage + ')"><a href="javascript:;">末页</a></li>';
+            //将分页内容加到分页条中
             $(".pageNum").append(nav);
+
+            //定位到页面顶部
+            window.scrollTo(0,0);
         }
     </script>
 </body>
