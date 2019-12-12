@@ -53,9 +53,6 @@ public class RouteServlet extends BaseServlet {
         }
 
         PageBean<Route> routePageBean = routeService.pageQuery(cid, currentPage, pageSize);
-        System.out.println(routePageBean);
-
-
         writeValue(routePageBean,response);
 
     }
