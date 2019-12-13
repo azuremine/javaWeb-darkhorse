@@ -1,4 +1,5 @@
 <!-- 头部 start -->
+<script type="text/javascript" src="js/getParameter.js"></script>
 <script>
     $(function () {
         //查询用户信息
@@ -19,16 +20,34 @@
            type:"get",
            success:function (data) {
                if(data.flag) {
+                   //先清空导航条
+                   $(".nav").empty();
+
+                   var cid = getParameter("cid");
                    var ele = data.data;
-                   var str = '<li class="nav-active"><a href="index.html">首页</a></li>';
+                   var str = '<li><a href="index.html">首页</a></li>';
+                   if (cid == null){
+                       str = '<li class="nav-active"><a href="index.html">首页</a></li>';
+                   }
                    $.each(ele, function (index, item) {
-                       str += '<li><a href="route_list.html?cid=' + item.cid + '">' + item.cname + '</a></li>';
+                       if(parseInt(cid) == parseInt(item.cid)){
+                           str += '<li class="nav-active"><a href="route_list.html?cid=' + item.cid + '">' + item.cname + '</a></li>';
+                       }else {
+                           str += '<li><a href="route_list.html?cid=' + item.cid + '">' + item.cname + '</a></li>';
+                       }
                    });
                    str += '<li><a href="favoriterank.html">收藏排行榜</a></li>';
                    $(".nav").append(str);
                }
            }
        });
+
+       //绑定搜索按钮，获取输入内容
+        $("#search-button").click(function () {
+            var rname = $("#search_input").val();
+            var cid  = getParameter("cid");
+            location.href = "route_list.html?cid=" + cid +"&rname=" + rname;
+        });
     });
 </script>
 
@@ -56,8 +75,8 @@
                     <a href="/"><img src="images/logo.jpg" alt=""></a>
                 </div>
                 <div class="search">
-                    <input name="" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
-                    <a href="javascript:;" class="search-button">搜索</a>
+                    <input id="search_input" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
+                    <a href="javascript:;" id="search-button" class="search-button">搜索</a>
                 </div>
                 <div class="hottel">
                     <div class="hot_pic">

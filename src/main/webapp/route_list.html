@@ -94,16 +94,24 @@
         //入口函数
         $(function () {
             var cid = getParameter("cid");
-            load(cid);
+            var rname = getParameter("rname");
+            if(rname != null){
+                rname = window.decodeURIComponent(rname);
+                //如果搜索内容不为空，加载指定搜索内容
+                load(cid,null,rname);
+            }else {
+                //搜索记录为空，加载所有内容
+                load(cid);
+            }
         });
 
         //加载页面数据
-        function load(cid,currentPage) {
-            $.get("route/pageQuery",{"cid":cid,"currentPage":currentPage},function (data) {
+        function load(cid,currentPage,rname) {
+            $.get("route/pageQuery",{"cid":cid,"currentPage":currentPage,"rname":rname},function (data) {
                 //设置列表数据
                 show_data(data);
                 //设置分页及记录信息
-                show_nav(cid,data);
+                show_nav(cid,data,rname);
             });
         }
 
@@ -139,7 +147,7 @@
         }
 
         //展示分页条及记录信息
-        function show_nav(cid,data) {
+        function show_nav(cid,data,rname) {
             //清空内容
             $(".page_num_inf").empty();
             $(".pageNum").empty();
@@ -157,8 +165,8 @@
             }
 
             var nav = '<ul>' +
-                '<li class="threeword" onclick="javascript:load(' + cid + ')"><a href="javascript:;">首页</a></li>' +
-                '<li class="threeword" onclick="javascript:load(' + cid + ',' + beforeNum + ')"><a href="javascript:;">上一页</a></li>';
+                '<li class="threeword" onclick="javascript:load(' + cid + ',' + null + ',\'' + rname + '\')"><a href="javascript:;">首页</a></li>' +
+                '<li class="threeword" onclick="javascript:load(' + cid + ',' + beforeNum + ',\'' + rname + '\')"><a href="javascript:;">上一页</a></li>';
 
             //定义开始位置begin，和结束位置end
             var begin,end;
@@ -185,9 +193,9 @@
 
             for (var i = begin; i <= end; i++) {
                 if (data.currentPage == i){
-                    nav += '<li class="curPage" onclick="javascript:load(' + cid + ',' + i + ')"><a href="javascript:;">' + i + '</a></li>';
+                    nav += '<li class="curPage" onclick="javascript:load(' + cid + ',' + i + ',\'' + rname + '\')"><a href="javascript:;">' + i + '</a></li>';
                 }else {
-                    nav += '<li onclick="javascript:load(' + cid + ',' + i + ')"><a href="javascript:;">' + i + '</a></li>';
+                    nav += '<li onclick="javascript:load(' + cid + ',' + i + ',\'' + rname + '\')"><a href="javascript:;">' + i + '</a></li>';
                 }
             }
 
@@ -196,8 +204,8 @@
             if(nextNum > data.totalPage){
                 nextNum = data.totalPage;
             }
-            nav += '<li class="threeword" onclick="javascript:load(' + cid + ',' + nextNum + ')"><a href="javascript:;">下一页</a></li>' +
-                '<li class="threeword" onclick="javascript:load(' + cid + ',' + data.totalPage + ')"><a href="javascript:;">末页</a></li>';
+            nav += '<li class="threeword" onclick="javascript:load(' + cid + ',' + nextNum + ',\'' + rname + '\')"><a href="javascript:;">下一页</a></li>' +
+                '<li class="threeword" onclick="javascript:load(' + cid + ',' + data.totalPage + ',\'' + rname + '\')"><a href="javascript:;">末页</a></li>';
             //将分页内容加到分页条中
             $(".pageNum").append(nav);
 

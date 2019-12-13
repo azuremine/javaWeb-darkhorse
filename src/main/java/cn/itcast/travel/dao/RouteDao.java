@@ -11,7 +11,7 @@ public interface RouteDao {
      * @param cid
      * @return
      */
-    int findTotalCount(int cid);
+    int findTotalCount(int cid, String rname);
 
     /**
      * 根据cid,start,pageSize查询当前页的数据集合
@@ -20,5 +20,5 @@ public interface RouteDao {
      * @param pageSize
      * @return
      */
-    List<Route> findByPage(int cid, int start, int pageSize);
+    List<Route> findByPage(int cid, String rname, int start, int pageSize);
 }

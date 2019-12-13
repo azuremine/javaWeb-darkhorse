@@ -12,9 +12,9 @@ public class RouteServiceImpl implements RouteService {
     private PageBean<Route> pageBean = new PageBean<Route>();
 
     @Override
-    public PageBean<Route> pageQuery(int cid, int currentPage, int pageSize) {
+    public PageBean<Route> pageQuery(int cid, String rname, int currentPage, int pageSize) {
         //获取总记录条数
-        int totalCount = routeDao.findTotalCount(cid);
+        int totalCount = routeDao.findTotalCount(cid,rname);
         //设置当前页码
         pageBean.setCurrentPage(currentPage);
         //设置每页条数
@@ -26,7 +26,7 @@ public class RouteServiceImpl implements RouteService {
         pageBean.setTotalPage(totalPage);
         //设置每页显示的数据
         int start = (currentPage-1) * pageSize;
-        pageBean.setList(routeDao.findByPage(cid,start,pageSize));
+        pageBean.setList(routeDao.findByPage(cid,rname,start,pageSize));
 
         return pageBean;
     }

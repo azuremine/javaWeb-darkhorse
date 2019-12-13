@@ -29,12 +29,17 @@ public class RouteServlet extends BaseServlet {
         String currentPageStr = request.getParameter("currentPage");
         String pageSizeStr = request.getParameter("pageSize");
         String cidStr = request.getParameter("cid");
+        //接受线路名称
+        String rname = request.getParameter("rname");
+        if(rname != null && rname.length() > 0){
+            rname = new String(rname.getBytes("iso-8859-1"),"utf-8");
+        }
 
         int cid = 0;
         int currentPage = 0;
         int pageSize = 0;
         //1、处理参数
-        if(cidStr != null && cidStr.length() >0){
+        if(cidStr != null && cidStr.length() >0 && !cidStr.equals("null")){
             cid = Integer.parseInt(cidStr);
         }
 
@@ -52,7 +57,7 @@ public class RouteServlet extends BaseServlet {
             pageSize = 5; //不传值，默认为5
         }
 
-        PageBean<Route> routePageBean = routeService.pageQuery(cid, currentPage, pageSize);
+        PageBean<Route> routePageBean = routeService.pageQuery(cid, rname, currentPage, pageSize);
         writeValue(routePageBean,response);
 
     }
