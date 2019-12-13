@@ -10,6 +10,7 @@
     <script src="js/jquery-3.3.1.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/getParameter.js"></script>
 </head>
 
 <body>
@@ -26,7 +27,7 @@
         <div class="prosum_box">
             <dl class="prosum_left">
                 <dt>
-                    <img alt="" class="big_img" src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m49788843d72171643297ccc033d9288ee.jpg">
+                    <img alt="" class="big_img" src="">
                 </dt>
                 <dd>
                     <a class="up_img up_img_disable"></a>
@@ -61,12 +62,12 @@
                 </dd>
             </dl>
             <div class="prosum_right">
-               <p class="pros_title">【尾单特卖】全国-曼谷6-7天自由行 泰国出境旅游 特价往返机票自由行二次确认</p>
-                <p class="hot">1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
+               <p class="pros_title"></p>
+                <p class="hot"></p>
                 <div class="pros_other">
-                    <p>经营商家  ：黑马国旅</p>
-                    <p>咨询电话 : 400-618-9090</p>
-                    <p>地址 ： 传智播客黑马程序员</p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
                 </div>
                 <div class="pros_price">
                     <p class="price"><strong>¥2699.00</strong><span>起</span></p>
@@ -145,6 +146,46 @@
         //自动播放
         // var timer = setInterval("auto_play()", 5000);
     });
+
+        //页面信息加载
+        $(function () {
+            var rid = getParameter("rid");
+            $.ajax({
+                url:"route/findOne",
+                type:"get",
+                data:{"rid":rid},
+                success:function (data) {
+                    load(data);
+                }
+            });
+        });
+
+        //加载页面显示内容
+        function load(data) {
+            //旅游线路标题
+            $(".pros_title").text(data.rname);
+            //线路介绍
+            $(".hot").text(data.routeIntroduce);
+            //商家信息
+            $(".pros_other p:eq(0)").text("经营商家  ：" + data.seller.sname);
+            $(".pros_other p:eq(1)").text("咨询电话 : " + data.seller.consphone);
+            $(".pros_other p:eq(2)").text("地址 ： " + data.seller.address);
+            //价格
+            $(".price strong").text("￥" + data.price);
+            //展示图片
+            $(".big_img").attr("src",data.routeImgList[0].bigPic);
+            //遍历显示，缩略图
+            var content = '<a class="up_img up_img_disable"></a>';
+            $.each(data.routeImgList,function (index,item) {
+                if(index)
+                content += '<a title="" class="little_img" data-bigpic="' + item.bigPic + '">' +
+                    '           <img src="' + item.smallPic + '">' +
+                    '           </a>';
+            });
+            content += '<a class="down_img down_img_disable" style="margin-bottom: 0;"></a>';
+            $(".prosum_left dd").append(content);
+            $("dd a:eq(1)").addClass('cur_img');
+        }
 
         //自动轮播方法
         function auto_play() {

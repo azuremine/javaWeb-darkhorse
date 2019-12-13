@@ -101,7 +101,7 @@
                 load(cid,null,rname);
             }else {
                 //搜索记录为空，加载所有内容
-                load(cid);
+                load(cid,null,null);
             }
         });
 
@@ -137,7 +137,7 @@
                     '            <span>' + item.price + '</span>' +
                     '            <span>起</span>' +
                     '            </p>' +
-                    '            <p><a href="route_detail.html">查看详情</a></p>' +
+                    '            <p><a href="route_detail.html?rid=' + item.rid + '">查看详情</a></p>' +
                     '            </div>' +
                     '        </li>';
 

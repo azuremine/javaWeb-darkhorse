@@ -31,8 +31,10 @@ public class RouteServlet extends BaseServlet {
         String cidStr = request.getParameter("cid");
         //接受线路名称
         String rname = request.getParameter("rname");
-        if(rname != null && rname.length() > 0){
+        if(rname != null && rname.length() > 0 && !rname.equals("null")){
             rname = new String(rname.getBytes("iso-8859-1"),"utf-8");
+        }else {
+            rname = null;
         }
 
         int cid = 0;
@@ -62,4 +64,19 @@ public class RouteServlet extends BaseServlet {
 
     }
 
+    /**
+     * 查找路线详细信息
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void findOne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        Route one = null;
+        String rid = request.getParameter("rid");
+        if(rid != null && rid.length() > 0){
+            one = routeService.findOne(Integer.parseInt(rid));
+        }
+        writeValue(one,response);
+    }
 }

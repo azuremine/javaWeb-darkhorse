@@ -24,10 +24,11 @@ public class RouteDaoImpl implements RouteDao{
             sb.append(" and cid = ?");
             params.add(cid);    //添加？对应的值
         }
-        if (rname != null && rname.length() > 0){
+        if (rname != null && rname.length() > 0 ){
             sb.append(" and rname like ?");
             params.add("%" + rname + "%");  //添加？对应的值
         }
+
         return template.queryForObject(sb.toString(),Integer.class,params.toArray());
     }
 
@@ -49,10 +50,23 @@ public class RouteDaoImpl implements RouteDao{
             sb.append(" limit ? , ?");
             params.add(start);
             params.add(pageSize);
+
             list = template.query(sb.toString(), new BeanPropertyRowMapper<Route>(Route.class), params.toArray());
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    public Route findOne(int rid) {
+        Route route = null;
+        String sql = "select * from tab_route where rid = ?";
+        try {
+            route = template.queryForObject(sql,new BeanPropertyRowMapper<Route>(Route.class),rid);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return route;
     }
 }
