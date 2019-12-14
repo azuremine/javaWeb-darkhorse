@@ -1,15 +1,14 @@
 package cn.itcast.travel.service.impl;
 
+import cn.itcast.travel.dao.FavoriteDao;
 import cn.itcast.travel.dao.RouteDao;
 import cn.itcast.travel.dao.RouteImgDao;
 import cn.itcast.travel.dao.SellerDao;
+import cn.itcast.travel.dao.impl.FavoriteDaoImpl;
 import cn.itcast.travel.dao.impl.RouteDaoImpl;
 import cn.itcast.travel.dao.impl.RouteImgDaoImpl;
 import cn.itcast.travel.dao.impl.SellerDaoImpl;
-import cn.itcast.travel.domain.PageBean;
-import cn.itcast.travel.domain.Route;
-import cn.itcast.travel.domain.RouteImg;
-import cn.itcast.travel.domain.Seller;
+import cn.itcast.travel.domain.*;
 import cn.itcast.travel.service.RouteService;
 
 import java.util.List;
@@ -21,6 +20,7 @@ public class RouteServiceImpl implements RouteService {
     private SellerDao sellerDao = new SellerDaoImpl();
     private RouteImgDao routeImgDao = new RouteImgDaoImpl();
     private PageBean<Route> pageBean = new PageBean<Route>();
+    private FavoriteDao favoriteDao = new FavoriteDaoImpl();
 
     @Override
     public PageBean<Route> pageQuery(int cid, String rname, int currentPage, int pageSize) {
@@ -55,7 +55,11 @@ public class RouteServiceImpl implements RouteService {
             int img_rid = route.getRid();
             List<RouteImg> imgList = routeImgDao.findByRid(img_rid);
             route.setRouteImgList(imgList);
+            //查询对应线路收藏次数
+            int count = favoriteDao.finCount(rid);
+            route.setCount(count);
         }
         return route;
     }
+
 }
