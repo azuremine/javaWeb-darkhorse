@@ -56,7 +56,7 @@ public class RouteServiceImpl implements RouteService {
             List<RouteImg> imgList = routeImgDao.findByRid(img_rid);
             route.setRouteImgList(imgList);
             //查询对应线路收藏次数
-            int count = favoriteDao.finCount(rid);
+            int count = favoriteDao.finCountByRid(rid);
             route.setCount(count);
         }
         return route;

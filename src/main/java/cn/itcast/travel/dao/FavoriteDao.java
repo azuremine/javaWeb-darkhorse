@@ -17,5 +17,5 @@ public interface FavoriteDao {
      * @param rid
      * @return
      */
-    int finCount(int rid);
+    int finCountByRid(int rid);
 }

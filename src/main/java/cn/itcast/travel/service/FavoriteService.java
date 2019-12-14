@@ -10,11 +10,4 @@ public interface FavoriteService {
      */
     boolean isFavorite(String rid, int uid);
 
-    /**
-     * 根据rid查询旅游线路收藏次数
-     * @param rid
-     * @return
-     */
-    int findCount(String rid);
-
 }

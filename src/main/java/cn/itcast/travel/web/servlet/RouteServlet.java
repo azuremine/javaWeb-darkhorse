@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet("/route/*")
 public class RouteServlet extends BaseServlet {
@@ -109,6 +111,9 @@ public class RouteServlet extends BaseServlet {
         String rid = request.getParameter("rid");
         boolean flag = favoriteService.isFavorite(rid,uid);
         info.setFlag(flag);
+        Map<String,Integer> map = new HashMap<String,Integer>();
+        map.put("uid",uid);
+        info.setData(map);
         writeValue(info,response);
     }
 }
