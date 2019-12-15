@@ -17,4 +17,13 @@ public class FavoriteServiceImpl implements FavoriteService {
         }
         return true;
     }
+
+    @Override
+    public boolean addFavorite(String rid, int uid) {
+        int result = favoriteDao.saveFavorite(rid,uid);
+        if(result == 1){
+            return true;
+        }
+        return false;
+    }
 }

@@ -42,7 +42,7 @@
                 <div class="pros_price">
                     <p class="price"><strong>¥2699.00</strong><span>起</span></p>
                     <p class="collect">
-                        <a class="btn"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+                        <a class="btn" onclick="addFavorite();"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
 <!--                        <a  class="btn already" disabled="disabled"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>-->
                         <span></span>
                     </p>
@@ -108,6 +108,11 @@
                     isFavorite(data);
                 }
             });
+
+            // //给收藏按钮绑定点击事件
+            // $(".btn").click(function () {
+            //     addFavorite(rid);
+            // });
         });
 
         //加载页面显示内容
@@ -209,15 +214,45 @@
             if(data.flag){
                 //用户已经收藏过
                 $(".pros_price a").addClass('already').attr('disabled','disabled');
+                $(".pros_price a").removeAttr('onClick');
             }else {
-                if(data.data.uid != 0){
-                    //用户已经登录，但未收藏
-                }else {
-                    //用户未登录，跳转到登录页面
-                    location.href = "login.html";
-                }
                 $(".pros_price a").removeAttr('disabled');
             }
+        }
+
+        //点击收藏按钮
+        function addFavorite() {
+            var rid = getParameter("rid");
+            //判断用户是否登录
+            $.ajax({
+                url:"user/findUser",
+                type:"get",
+                success:function (data) {
+                    if (data == null){
+                        //用户未登录
+                        alert("您尚未登录，请先登录！");
+                        location.href = "login.html";
+                    }else {
+                        //用户已经登录
+                        //发送ajax请求保存收藏路线
+                        $.ajax({
+                            url:"route/addFavorite",
+                            type:"post",
+                            data:{"rid":rid},
+                            success:function (data) {
+                                if(data.flag){
+                                    //收藏成功
+                                    $(".pros_price a").addClass('already').attr('disabled','disabled');
+                                    location.reload();
+                                }else {
+                                    //收藏失败请重试
+                                    alert("请求失败！请重新尝试")
+                                }
+                            }
+                        });
+                    }
+                }
+            });
         }
     </script>
 

@@ -1,9 +1,12 @@
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\util\Md5Util.java
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\domain\User.java
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\service\CategoryService.java
+F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\dao\FavoriteDao.java
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\dao\impl\UserDaoImpl.java
+F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\dao\impl\FavoriteDaoImpl.java
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\util\UuidUtil.java
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\web\servlet\CheckCodeServlet.java
+F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\service\FavoriteService.java
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\util\JedisUtil.java
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\util\JDBCUtils.java
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\web\servlet\UserServlet.java
@@ -29,6 +32,7 @@ F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\web\servlet\CategoryServle
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\dao\SellerDao.java
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\domain\RouteImg.java
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\service\impl\CategoryServiceImpl.java
+F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\service\impl\FavoriteServiceImpl.java
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\dao\RouteImgDao.java
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\domain\Seller.java
 F:\IdeaProjects\travel\src\main\java\cn\itcast\travel\web\filter\CharchaterFilter.java

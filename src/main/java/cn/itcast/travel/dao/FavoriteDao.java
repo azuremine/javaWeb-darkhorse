@@ -18,4 +18,12 @@ public interface FavoriteDao {
      * @return
      */
     int finCountByRid(int rid);
+
+    /**
+     * 根据rid和uid收藏旅游线路
+     * @param rid
+     * @param uid
+     * @return
+     */
+    int saveFavorite(String rid, int uid);
 }
